@@ -83,44 +83,6 @@ public class MasBalizasFragment extends Fragment {
         editTextBusqueda = inf.findViewById(R.id.editTextBusqueda);
         TextoBusqueda = editTextBusqueda.getText().toString();
 
-        editTextBusqueda.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    TextoBusqueda = editTextBusqueda.getText().toString();
-                    Toast toast1 = Toast.makeText(mainActivity.getApplicationContext(), TextoBusqueda, Toast.LENGTH_SHORT);
-                    toast1.show();
-
-                    HandlerThread ht2 = new HandlerThread("HandleThread");
-                    ht2.start();
-
-                    Handler handlerLeer2 = new Handler(ht2.getLooper());
-
-                    handlerLeer2.post(new Runnable() {
-                                          @Override
-                                          public void run() {
-                                              TextoBusqueda = TextoBusqueda + "%";
-
-                                              System.out.println("Texto busqueda : " + TextoBusqueda);
-
-                                             // List<Balizas> balizasencontradas = mainActivity.db.balizasDao().Busqueda(TextoBusqueda);
-
-                                              mainActivity.runOnUiThread(new Runnable() {
-                                                  @Override
-                                                  public void run() {
-                                                //      masBalizasRVAdapter.setBalizas(balizasencontradas);
-                                                  }
-                                              });
-
-                                          }
-                                      }
-                    );
-
-                    return true;
-                }
-                return false;
-            }
-        });
 
         RecyclerView rvmasbalizas = inf.findViewById(R.id.rvmasbalizas);
         rvmasbalizas.setLayoutManager(new LinearLayoutManager(mainActivity));
@@ -153,6 +115,62 @@ public class MasBalizasFragment extends Fragment {
                             }
                         };
                         viewModelMasBalizas.getBalizas().observe(mainActivity, nameObserver);
+                    }
+                });
+
+
+                editTextBusqueda.setOnKeyListener(new View.OnKeyListener() {
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                        if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                            TextoBusqueda = editTextBusqueda.getText().toString();
+                            Toast toast1 = Toast.makeText(mainActivity.getApplicationContext(), TextoBusqueda, Toast.LENGTH_SHORT);
+                            toast1.show();
+
+                            HandlerThread ht2 = new HandlerThread("HandleThread");
+                            ht2.start();
+
+                            Handler handlerLeer2 = new Handler(ht2.getLooper());
+
+                            handlerLeer2.post(new Runnable() {
+                                                  @Override
+                                                  public void run() {
+                                                      TextoBusqueda = TextoBusqueda + "%";
+
+                                                      System.out.println("Texto busqueda : " + TextoBusqueda);
+
+                                                      //Funcion para saber en que posicion esta el primero de esa letra
+                                                      // mainActivity.db.balizasDao().Busqueda(TextoBusqueda);
+                                                      System.out.println("" + mainActivity.db.balizasDao().Busqueda(TextoBusqueda));
+
+                                                      int PosicionPrimerBuscada = masBalizasRVAdapter.getItemCount() - 1;
+
+                                                      for (int i = 0; i < masBalizasRVAdapter.balizas.size(); i++) {
+                                                            if (masBalizasRVAdapter.balizas.get(i).name.equals( mainActivity.db.balizasDao().Busqueda(TextoBusqueda))) {
+                                                                PosicionPrimerBuscada = i;
+                                                            }
+                                                      }
+
+                                                      int finalPosicionPrimerBuscada = PosicionPrimerBuscada;
+                                                      mainActivity.runOnUiThread(new Runnable() {
+                                                          @Override
+                                                          public void run() {
+                                                              rvmasbalizas.post(new Runnable() {
+                                                                  @Override
+                                                                  public void run() {
+                                                                      rvmasbalizas.scrollToPosition(finalPosicionPrimerBuscada+3);
+                                                                  }
+                                                              });
+                                                          }
+                                                      });
+
+                                                  }
+                                              }
+                            );
+
+                            return true;
+                        }
+                        return false;
                     }
                 });
 

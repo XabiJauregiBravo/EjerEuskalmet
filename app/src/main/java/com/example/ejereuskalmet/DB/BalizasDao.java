@@ -13,8 +13,8 @@ public interface BalizasDao {
     @Query("SELECT * FROM Balizas ORDER BY name")
     LiveData<List<Balizas>> getAll();
 
-//    @Query("SELECT * FROM Balizas ORDER BY :busqueda")
-//    List<Balizas> Busqueda(String busqueda);
+    @Query("SELECT name FROM Balizas WHERE name LIKE :busqueda")
+    String Busqueda(String busqueda);
 
     @Insert
     void insert(Balizas balizas);
