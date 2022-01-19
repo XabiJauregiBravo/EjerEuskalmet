@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        db = Room.databaseBuilder(this.getApplicationContext(), AppDatabase.class, "db-euskalmet").fallbackToDestructiveMigration().build();
+        db = Room.databaseBuilder(this.getApplicationContext(), AppDatabase.class, "db-euskalmet").build();
 
         // LLAMADA A LA API PARA CONSEGUIR LOS DATOS DE LAS BALIZAS Y PODER MOSTRARLO EN LA LISTA RECICLABLE
         RequestQueue queue = Volley.newRequestQueue(this);

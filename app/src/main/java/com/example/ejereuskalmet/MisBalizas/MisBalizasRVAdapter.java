@@ -108,13 +108,9 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
 
-        viewHolder.getNombre().setText(misbalizas.get(position).name);
-
-        viewHolder.getHora().setText(mislecturas.get(position).hora);
-
         System.out.println("size mislecturas :" +mislecturas.size());
 
-        System.out.println("hora :" +mislecturas.get(position).hora);
+        System.out.println("hora :" + mislecturas.get(position).hora);
 
         System.out.println("max_speed :" +mislecturas.get(position).max_speed);
 
@@ -128,6 +124,9 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
 
         System.out.println("precipitation :" +mislecturas.get(position).precipitation);
 
+        viewHolder.getNombre().setText(misbalizas.get(position).name);
+
+        viewHolder.getHora().setText(mislecturas.get(position).hora);
         viewHolder.getMax_speed().setText(String.valueOf(mislecturas.get(position).max_speed));
         viewHolder.getHumidity().setText(String.valueOf(mislecturas.get(position).humidity));
         viewHolder.getMean_speed().setText(String.valueOf(mislecturas.get(position).mean_speed));

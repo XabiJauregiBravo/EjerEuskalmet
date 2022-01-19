@@ -181,7 +181,7 @@ public class MasBalizasFragment extends Fragment {
                 });
 
         //mainActivity.db.balizasDao().deleteAll();
-        mainActivity.db.datosDao().deleteAll();
+        //mainActivity.db.datosDao().deleteAll();
 
 
           MisBalizasRVAdapter misBalizasRVAdapter = new MisBalizasRVAdapter(mainActivity, sectionsPagerAdapter);
@@ -350,8 +350,12 @@ public class MasBalizasFragment extends Fragment {
                             handlerLeer.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mainActivity.db.datosDao().insert(lectura);
+                                    if (mainActivity.db.datosDao().Existe(lectura.id)){
 
+                                        mainActivity.db.datosDao().update(lectura.id, lectura.mean_direction, lectura.mean_speed, lectura.max_speed, lectura.temperature, lectura.humidity, lectura.precipitation, lectura.irradiance);
+                                    }else{
+                                        mainActivity.db.datosDao().insert(lectura);
+                                    }
                                 }});
                             } catch (JSONException e) {
                                 e.printStackTrace();

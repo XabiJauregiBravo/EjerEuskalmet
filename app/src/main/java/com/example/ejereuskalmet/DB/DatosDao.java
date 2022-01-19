@@ -12,6 +12,12 @@ public interface DatosDao {
     @Query("SELECT * FROM Datos ORDER BY name")
     LiveData<List<Datos>> getAll();
 
+    @Query("SELECT COUNT(1) FROM Datos WHERE id = :id;")
+    boolean Existe(String id);
+
+    @Query("UPDATE Datos SET mean_direction = :mean_direction, mean_speed = :mean_speed, max_speed = :max_speed, temperature = :temperature, humidity = :humidity, precipitation = :precipitation, irradiance = :irradiance  WHERE id = :id")
+    void update(String id,double mean_direction,double mean_speed,double max_speed,double temperature,double humidity,double precipitation,double irradiance);
+
     @Insert
     void insert(Datos datos);
 
