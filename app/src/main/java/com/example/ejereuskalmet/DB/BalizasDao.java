@@ -36,7 +36,4 @@ public interface BalizasDao {
 
     @Query("SELECT * FROM Balizas WHERE activated = 'true' ORDER BY name")
     LiveData<List<Balizas>> getAllBalizasActivadas();
-
-    @Query("UPDATE Balizas SET mean_direction = :mean_direction, mean_speed = :mean_speed, max_speed = :max_speed, temperature = :temperature, humidity = :humidity, precipitation = :precipitation, irradiance = :irradiance  WHERE id = :id")
-    void updateDatosMeteorologicos(String id,double mean_direction,double mean_speed,double max_speed,double temperature,double humidity,double precipitation,double irradiance);
 }

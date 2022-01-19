@@ -304,6 +304,9 @@ public class MasBalizasFragment extends Fragment {
                                 }
                                 Collections.sort(horas);
 
+
+                                lectura.hora = horas.get(horas.size() - 1);
+
                                 switch (a[i]) {
                                     case "11":
                                         System.out.println("mean_speed de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
@@ -334,10 +337,6 @@ public class MasBalizasFragment extends Fragment {
                                         System.out.println("irradiance de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
                                         lectura.irradiance = (double) objfinal.get(horas.get(horas.size() - 1));
                                         break;
-                                    default:
-                                        lectura.hora = horas.get(horas.size() - 1);
-
-                                        break;
                                     }
                                 }
                             rvmasbalizas.setAdapter(masBalizasRVAdapter);
@@ -352,7 +351,7 @@ public class MasBalizasFragment extends Fragment {
                                 public void run() {
                                     if (mainActivity.db.datosDao().Existe(lectura.id)){
 
-                                        mainActivity.db.datosDao().update(lectura.id, lectura.mean_direction, lectura.mean_speed, lectura.max_speed, lectura.temperature, lectura.humidity, lectura.precipitation, lectura.irradiance);
+                                        mainActivity.db.datosDao().update(lectura.id, lectura.mean_direction, lectura.mean_speed, lectura.max_speed, lectura.temperature, lectura.humidity, lectura.precipitation, lectura.irradiance,lectura.hora);
                                     }else{
                                         mainActivity.db.datosDao().insert(lectura);
                                     }

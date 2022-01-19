@@ -17,35 +17,35 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="72dp"
-            android:layout_height="54dp"
+            android:layout_width="54dp"
+            android:layout_height="39dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintHorizontal_bias="0.041"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.038"
+            app:layout_constraintVertical_bias="0.081"
             app:srcCompat="@drawable/euskalmet" />
 
         <TextView
             android:id="@+id/tvNombre"
-            android:layout_width="196dp"
-            android:layout_height="54dp"
+            android:layout_width="226dp"
+            android:layout_height="34dp"
             android:text="Texto de Ejemplo"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvHora"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.855"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.038" />
+            app:layout_constraintVertical_bias="0.079" />
 
         <TextView
             android:id="@+id/tvHora"
-            android:layout_width="85dp"
-            android:layout_height="26dp"
-            android:textSize="14sp"
+            android:layout_width="66dp"
+            android:layout_height="53dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,9 +56,9 @@
 
         <TextView
             android:id="@+id/tvIrrandiance"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:layout_width="67dp"
+            android:layout_height="19dp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,80 +69,81 @@
 
         <TextView
             android:id="@+id/tvHumidity"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:layout_width="59dp"
+            android:layout_height="26dp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.269"
+            app:layout_constraintHorizontal_bias="0.293"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.458" />
+            app:layout_constraintVertical_bias="0.471" />
 
         <TextView
             android:id="@+id/tvMeanSpeed"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:layout_width="56dp"
+            android:layout_height="32dp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.042"
+            app:layout_constraintHorizontal_bias="0.065"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.763" />
+            app:layout_constraintVertical_bias="0.822" />
 
         <TextView
             android:id="@+id/tvMaxSpeed"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:layout_width="56dp"
+            android:layout_height="30dp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.267"
+            app:layout_constraintHorizontal_bias="0.279"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.763" />
+            app:layout_constraintVertical_bias="0.814" />
 
         <TextView
             android:id="@+id/tvPrecipitation"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:layout_width="75dp"
+            android:layout_height="19dp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.577"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.458" />
+            app:layout_constraintVertical_bias="0.472" />
 
         <TextView
             android:id="@+id/tvMeanDirection"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:layout_width="64dp"
+            android:layout_height="37dp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.474"
+            app:layout_constraintHorizontal_bias="0.536"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.763" />
+            app:layout_constraintVertical_bias="0.843" />
 
         <TextView
             android:id="@+id/tvTemperature"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:layout_width="71dp"
+            android:layout_height="28dp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.775"
+            app:layout_constraintHorizontal_bias="0.862"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.458" />
+            app:layout_constraintVertical_bias="0.492" />
 
         <TextView
             android:id="@+id/tvtIrradiance"
@@ -220,9 +221,10 @@
             android:id="@+id/tvtMeanDirection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vel.Media"
+            android:text="Dirección Media"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.604"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.638" />

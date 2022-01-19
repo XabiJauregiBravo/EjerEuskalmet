@@ -108,32 +108,27 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
 
-        System.out.println("size mislecturas :" +mislecturas.size());
+        System.out.println("size mislecturas : " +mislecturas.size());
 
-        System.out.println("hora :" + mislecturas.get(position).hora);
-
-        System.out.println("max_speed :" +mislecturas.get(position).max_speed);
-
-        System.out.println("humidity :" +mislecturas.get(position).humidity);
-
-        System.out.println("mean_direction :" +mislecturas.get(position).mean_direction);
-
-        System.out.println("temperature :" +mislecturas.get(position).temperature);
-
-        System.out.println("irradiance :" +mislecturas.get(position).irradiance);
-
-        System.out.println("precipitation :" +mislecturas.get(position).precipitation);
+        System.out.println("nombre : " +misbalizas.get(position).name);
+        System.out.println("hora : " + mislecturas.get(position).hora);
+        System.out.println("max_speed : " +mislecturas.get(position).max_speed);
+        System.out.println("humidity : " +mislecturas.get(position).humidity);
+        System.out.println("mean_direction : " +mislecturas.get(position).mean_direction);
+        System.out.println("mean_speed : " +mislecturas.get(position).mean_speed);
+        System.out.println("temperature : " +mislecturas.get(position).temperature);
+        System.out.println("irradiance : " +mislecturas.get(position).irradiance);
+        System.out.println("precipitation : " +mislecturas.get(position).precipitation);
 
         viewHolder.getNombre().setText(misbalizas.get(position).name);
-
         viewHolder.getHora().setText(mislecturas.get(position).hora);
-        viewHolder.getMax_speed().setText(String.valueOf(mislecturas.get(position).max_speed));
-        viewHolder.getHumidity().setText(String.valueOf(mislecturas.get(position).humidity));
-        viewHolder.getMean_speed().setText(String.valueOf(mislecturas.get(position).mean_speed));
-        viewHolder.getMean_direction().setText(String.valueOf(mislecturas.get(position).mean_direction));
-        viewHolder.getTemperature().setText(String.valueOf(mislecturas.get(position).temperature));
-        viewHolder.getIrrandiance().setText(String.valueOf(mislecturas.get(position).irradiance));
-        viewHolder.getPrecipitation().setText(String.valueOf(mislecturas.get(position).precipitation));
+        viewHolder.getMax_speed().setText(String.valueOf(mislecturas.get(position).max_speed)+" km/h");
+        viewHolder.getHumidity().setText(String.valueOf(mislecturas.get(position).humidity)+" %");
+        viewHolder.getMean_speed().setText(String.valueOf(mislecturas.get(position).mean_speed)+" m/s");
+        viewHolder.getMean_direction().setText(String.valueOf(mislecturas.get(position).mean_direction)+" º");
+        viewHolder.getTemperature().setText(String.valueOf(mislecturas.get(position).temperature)+" ºC");
+        viewHolder.getIrrandiance().setText(String.valueOf(mislecturas.get(position).irradiance)+" W/m2");
+        viewHolder.getPrecipitation().setText(String.valueOf(mislecturas.get(position).precipitation)+" l/m²");
     }
 
     @Override
