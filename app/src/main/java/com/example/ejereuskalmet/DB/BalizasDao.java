@@ -16,6 +16,9 @@ public interface BalizasDao {
     @Query("SELECT name FROM Balizas WHERE name LIKE :busqueda")
     String Busqueda(String busqueda);
 
+    @Query("SELECT COUNT(1) FROM Balizas WHERE id = :id;")
+    boolean Existe(String id);
+
     @Insert
     void insert(Balizas balizas);
 

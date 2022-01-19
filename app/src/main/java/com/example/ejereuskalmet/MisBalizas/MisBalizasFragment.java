@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ejereuskalmet.DB.Balizas;
+import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
 import com.example.ejereuskalmet.MasBalizas.MasBalizasRVAdapter;
 import com.example.ejereuskalmet.MasBalizas.ViewModelMasBalizas;
@@ -45,6 +46,7 @@ import java.util.List;
 public class MisBalizasFragment extends Fragment {
 
     public static List<Balizas> misbalizas = new ArrayList<>();
+    public static List<Datos> mislecturas = new ArrayList<>();
     public static MisBalizasRVAdapter misBalizasRVAdapter = new MisBalizasRVAdapter();
     public static MasBalizasRVAdapter masBalizasRVadapter = new MasBalizasRVAdapter();
     private ViewModelMisBalizas viewModelMisBalizas;
@@ -110,9 +112,36 @@ public class MisBalizasFragment extends Fragment {
                             }
                         };
                         viewModelMisBalizas.getBalizasActivadas().observe(mainActivity, nameObserver);
-                        //misBalizasRVAdapter.setBalizas(misbalizas);
 
                         System.out.println("Size de misbalizas en el fragmento: " + misbalizas.size());
+
+                    }
+                });
+            }
+        });
+
+        handlerLeer.post(new Runnable() {
+            @Override
+            public void run() {
+                mainActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewModelMisBalizas = new ViewModelProvider(mainActivity).get(ViewModelMisBalizas.class);
+
+                        final Observer<List<Datos>> nameObserver = new Observer<List<Datos>>() {
+                            @Override
+                            public void onChanged(List<Datos> dbData) {
+                                if (dbData != null){
+                                    System.out.println("Size de dbData en el fragmento: "+dbData.size());
+                                    misBalizasRVAdapter.setMislecturas(dbData);
+                                } else {
+                                    System.out.println("La lista está vacía");
+                                }
+                            }
+                        };
+                        viewModelMisBalizas.getAllDatos().observe(mainActivity, nameObserver);
+
+                        System.out.println("Size de mislecturas en el fragmento: " + mislecturas.size());
 
                     }
                 });
@@ -124,12 +153,8 @@ public class MisBalizasFragment extends Fragment {
     public static void setTrue(Balizas baliza){
         masBalizasRVadapter.setTrue(baliza);
     }
-
-    public static void setUpdatedData(List<Balizas> balizas, MainActivity main){
-        misBalizasRVAdapter.setUpdatedData(balizas,main);
-    }
-
     public static void setFalse(Balizas baliza){
         masBalizasRVadapter.setFalse(baliza);
     }
+
 }

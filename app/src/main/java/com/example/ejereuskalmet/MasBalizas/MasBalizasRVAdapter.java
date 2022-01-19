@@ -10,11 +10,27 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ejereuskalmet.DB.Balizas;
+import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
 import com.example.ejereuskalmet.R;
 import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public class MasBalizasRVAdapter extends RecyclerView.Adapter<MasBalizasRVAdapter.ViewHolder> {
@@ -40,7 +56,6 @@ public class MasBalizasRVAdapter extends RecyclerView.Adapter<MasBalizasRVAdapte
 
         public ViewHolder(View view) {
             super(view);
-
             nombre = (TextView) view.findViewById(R.id.tvNombre);
             aswitch = (Switch) view.findViewById(R.id.swc1);
         }
@@ -94,6 +109,7 @@ public class MasBalizasRVAdapter extends RecyclerView.Adapter<MasBalizasRVAdapte
     }
 
     public void setTrue(Balizas baliza) {
+
         HandlerThread ht = new HandlerThread("HandleThread");
         ht.start();
 
@@ -126,10 +142,6 @@ public class MasBalizasRVAdapter extends RecyclerView.Adapter<MasBalizasRVAdapte
     public void setBalizas(List<Balizas> balizas) {
         this.balizas = balizas;
         notifyDataSetChanged();
-    }
-
-    public void setBalizasBusqueda(List<Balizas> balizas) {
-        this.balizas = balizas;
     }
 
 }

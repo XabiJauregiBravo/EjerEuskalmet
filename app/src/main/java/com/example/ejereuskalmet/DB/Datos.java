@@ -8,8 +8,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Datos {
 
-        @PrimaryKey
-        @NonNull
+        @PrimaryKey @NonNull
         public String id;
 
         @ColumnInfo(name = "name")

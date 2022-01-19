@@ -10,7 +10,7 @@ import java.util.List;
 @Dao
 public interface DatosDao {
     @Query("SELECT * FROM Datos ORDER BY name")
-    LiveData<List<Balizas>> getAll();
+    LiveData<List<Datos>> getAll();
 
     @Insert
     void insert(Datos datos);
@@ -21,6 +21,7 @@ public interface DatosDao {
     @Query("DELETE FROM Datos")
     void deleteAll();
 
-    @Query("UPDATE Datos SET mean_direction = :mean_direction, mean_speed = :mean_speed, max_speed = :max_speed, temperature = :temperature, humidity = :humidity, precipitation = :precipitation, irradiance = :irradiance  WHERE id = :id")
-    void updateDatosMeteorologicos(String id,double mean_direction,double mean_speed,double max_speed,double temperature,double humidity,double precipitation,double irradiance);
+    @Query("DELETE FROM Datos WHERE id = :id")
+    void deleteBalizaDatos(String id);
+
 }

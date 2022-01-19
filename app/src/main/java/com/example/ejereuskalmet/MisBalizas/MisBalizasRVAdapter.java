@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ejereuskalmet.DB.Balizas;
+import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
 import com.example.ejereuskalmet.R;
 import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
@@ -28,7 +29,8 @@ import java.util.List;
 
 public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapter.ViewHolder> {
 
-    public List<Balizas> misbalizas;
+    public List<Balizas> misbalizas = new ArrayList<>();
+    public List<Datos> mislecturas = new ArrayList<>();
     private LayoutInflater mInflater;
     private MainActivity main;
     private SectionsPagerAdapter sectionsPagerAdapter;
@@ -106,18 +108,33 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
 
-        sectionsPagerAdapter.FuncionAdapter2(misbalizas,main);
-
         viewHolder.getNombre().setText(misbalizas.get(position).name);
-        viewHolder.getHora().setText(misbalizas.get(position).hora);
-        viewHolder.getMax_speed().setText(String.valueOf(misbalizas.get(position).max_speed));
-        viewHolder.getHumidity().setText(String.valueOf(misbalizas.get(position).humidity));
-        viewHolder.getMean_speed().setText(String.valueOf(misbalizas.get(position).mean_speed));
-        viewHolder.getMean_direction().setText(String.valueOf(misbalizas.get(position).mean_direction));
-        viewHolder.getTemperature().setText(String.valueOf(misbalizas.get(position).temperature));
-        viewHolder.getIrrandiance().setText(String.valueOf(misbalizas.get(position).irradiance));
-        viewHolder.getPrecipitation().setText(String.valueOf(misbalizas.get(position).precipitation));
 
+        viewHolder.getHora().setText(mislecturas.get(position).hora);
+
+        System.out.println("size mislecturas :" +mislecturas.size());
+
+        System.out.println("hora :" +mislecturas.get(position).hora);
+
+        System.out.println("max_speed :" +mislecturas.get(position).max_speed);
+
+        System.out.println("humidity :" +mislecturas.get(position).humidity);
+
+        System.out.println("mean_direction :" +mislecturas.get(position).mean_direction);
+
+        System.out.println("temperature :" +mislecturas.get(position).temperature);
+
+        System.out.println("irradiance :" +mislecturas.get(position).irradiance);
+
+        System.out.println("precipitation :" +mislecturas.get(position).precipitation);
+
+        viewHolder.getMax_speed().setText(String.valueOf(mislecturas.get(position).max_speed));
+        viewHolder.getHumidity().setText(String.valueOf(mislecturas.get(position).humidity));
+        viewHolder.getMean_speed().setText(String.valueOf(mislecturas.get(position).mean_speed));
+        viewHolder.getMean_direction().setText(String.valueOf(mislecturas.get(position).mean_direction));
+        viewHolder.getTemperature().setText(String.valueOf(mislecturas.get(position).temperature));
+        viewHolder.getIrrandiance().setText(String.valueOf(mislecturas.get(position).irradiance));
+        viewHolder.getPrecipitation().setText(String.valueOf(mislecturas.get(position).precipitation));
     }
 
     @Override
@@ -129,114 +146,13 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
         }
     }
 
-    public void setUpdatedData(List<Balizas> balizas, MainActivity main) {
-
-        /*MANEJAR LOS DATOS DEL JSON RESPONSE1 PARA UPDATEAR LOS DATOS DE LAS BALIZAS*/
-
-       /*
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-
-        int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-
-        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-
-        Balizas b = new Balizas();
-
-        System.out.println("Size de balizas : " + balizas.size());
-
-        RequestQueue queue = Volley.newRequestQueue(main);
-
-        HandlerThread ht = new HandlerThread("HandleThread");
-        ht.start();
-
-        Handler handlerLeer = new Handler(ht.getLooper());
-
-        for (int i = 0; i < balizas.size(); i++) {
-
-
-            String url = "https://www.euskalmet.euskadi.eus/vamet/stations/readings/" + balizas.get(i).id + "/" + year + "/" + month + "/" + day + "/readingsData.json";
-
-            int finalI = i;
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        String a[] = {"11", "12", "14", "21", "31", "40", "70"};
-
-                        for (int i = 0; i < a.length; i++) {
-
-                            JSONObject obj1 = (JSONObject) response.get(a[i]);
-                            JSONObject obj2 = (JSONObject) obj1.get("data");
-                            obj2.get(obj2.names().get(0).toString());
-                            JSONObject objfinal = (JSONObject) obj2.get(obj2.names().get(0).toString());
-                            ArrayList<String> horas = new ArrayList<>();
-
-                            for (int j = 0; j < objfinal.names().length(); j++) {
-                                horas.add(objfinal.names().get(j).toString());
-                            }
-                            Collections.sort(horas);
-
-                            switch (a[i]) {
-                                case "11":
-                                    System.out.println("mean_speed de " + balizas.get(finalI).id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    misbalizas.get(finalI).mean_speed = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    misbalizas.get(finalI).hora = horas.get(horas.size() - 1);
-                                    break;
-                                case "12":
-                                    System.out.println("mean_direction de " + balizas.get(finalI).id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    misbalizas.get(finalI).mean_direction = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    misbalizas.get(finalI).hora = horas.get(horas.size() - 1);
-                                    break;
-                                case "14":
-                                    System.out.println("max_speed de " + balizas.get(finalI).id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    misbalizas.get(finalI).max_speed = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    misbalizas.get(finalI).hora = horas.get(horas.size() - 1);
-                                    break;
-                                case "21":
-                                    System.out.println("temperature de " + balizas.get(finalI).id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    misbalizas.get(finalI).temperature = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    misbalizas.get(finalI).hora = horas.get(horas.size() - 1);
-                                    break;
-                                case "31":
-                                    System.out.println("humidity de " + balizas.get(finalI).id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    misbalizas.get(finalI).humidity = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    misbalizas.get(finalI).hora = horas.get(horas.size() - 1);
-                                    break;
-                                case "40":
-                                    System.out.println("precipitation de " + balizas.get(finalI).id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    misbalizas.get(finalI).precipitation = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    misbalizas.get(finalI).hora = horas.get(horas.size() - 1);
-                                    break;
-                                case "70":
-                                    System.out.println("irradiance de " + balizas.get(finalI).id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    misbalizas.get(finalI).irradiance = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    misbalizas.get(finalI).hora = horas.get(horas.size() - 1);
-                                    break;
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println(error);
-                    System.out.println("Ha ocurrido un error al realizar la peticion a Euskalmet");
-                }
-            });
-
-            queue.add(jsonObjectRequest);
-
-            this.misbalizas = balizas;
-            //notifyDataSetChanged();
-
-
-
-        }*/
-    }
     public void setBalizas(List<Balizas> balizas) {
         this.misbalizas = balizas;
+        notifyDataSetChanged();
+    }
+
+    public void setMislecturas(List<Datos> mislecturas) {
+        this.mislecturas = mislecturas;
         notifyDataSetChanged();
     }
 }

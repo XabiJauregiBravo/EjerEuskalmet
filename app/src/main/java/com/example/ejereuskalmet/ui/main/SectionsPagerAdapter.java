@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ejereuskalmet.DB.Balizas;
+import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
 import com.example.ejereuskalmet.Mapa.MapaFragment;
 import com.example.ejereuskalmet.MasBalizas.MasBalizasFragment;
@@ -72,21 +73,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public void FuncionAdapter(boolean isChecked,Balizas baliza, MainActivity ma){
         if(isChecked){
-            baliza.activated = "true";
             Toast.makeText(ma, "On en " + baliza.id, Toast.LENGTH_SHORT).show();
             MisBalizasFragment.setTrue(baliza);
         }
         else {
-            baliza.activated = "false";
             Toast.makeText(ma, "Off en " + baliza.id, Toast.LENGTH_SHORT).show();
             MisBalizasFragment.setFalse(baliza);
         }
-    }
-
-    public void FuncionAdapter2(List<Balizas> balizas, MainActivity main){
-
-        MisBalizasFragment.setUpdatedData(balizas,main);
-
     }
 
     @Nullable
