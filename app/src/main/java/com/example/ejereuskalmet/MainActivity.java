@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        db = Room.databaseBuilder(this.getApplicationContext(), AppDatabase.class, "db-euskalmet").build();
+        db = Room.databaseBuilder(this.getApplicationContext(), AppDatabase.class, "db-euskalmet").fallbackToDestructiveMigration().build();
 
         // LLAMADA A LA API PARA CONSEGUIR LOS DATOS DE LAS BALIZAS Y PODER MOSTRARLO EN LA LISTA RECICLABLE
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(MainActivity.this, MainActivity.this, getSupportFragmentManager(), response);
                 ViewPager viewPager = binding.viewPager;
                 viewPager.setAdapter(sectionsPagerAdapter);
+                viewPager.setCurrentItem(1);
                 TabLayout tabs = binding.tabs;
                 tabs.setupWithViewPager(viewPager);
             }

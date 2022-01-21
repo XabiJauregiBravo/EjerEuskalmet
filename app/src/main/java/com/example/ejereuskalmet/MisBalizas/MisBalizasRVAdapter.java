@@ -8,7 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,8 +23,10 @@ import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
 import com.example.ejereuskalmet.R;
 import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -38,7 +43,7 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
     public MisBalizasRVAdapter() {
     }
 
-    public MisBalizasRVAdapter(Context context,SectionsPagerAdapter sectionsPagerAdapter) {
+    public MisBalizasRVAdapter(Context context, SectionsPagerAdapter sectionsPagerAdapter) {
         this.mInflater = LayoutInflater.from(context);
         this.main = (MainActivity) context;
         this.sectionsPagerAdapter = sectionsPagerAdapter;
@@ -53,7 +58,6 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
         private final TextView max_speed;
         private final TextView temperature;
         private final TextView precipitation;
-        private final TextView irrandiance;
         private final TextView humidity;
 
         public ViewHolder(View view) {
@@ -65,37 +69,45 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
             max_speed = view.findViewById(R.id.tvMaxSpeed);
             precipitation = view.findViewById(R.id.tvPrecipitation);
             temperature = view.findViewById(R.id.tvTemperature);
-            irrandiance = view.findViewById(R.id.tvIrrandiance);
             humidity = view.findViewById(R.id.tvHumidity);
         }
 
         public TextView getNombre() {
             return nombre;
         }
+
         public TextView getHora() {
             return hora;
         }
+
         public TextView getMean_speed() {
             return mean_speed;
         }
+
         public TextView getMax_speed() {
             return max_speed;
         }
+
         public TextView getTemperature() {
             return temperature;
         }
-        public TextView getIrrandiance() {
-            return irrandiance;
-        }
+
         public TextView getHumidity() {
             return humidity;
         }
+
         public TextView getMean_direction() {
             return mean_direction;
         }
+
         public TextView getPrecipitation() {
             return precipitation;
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override
@@ -106,36 +118,42 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
 
-        System.out.println("size mislecturas : " +mislecturas.size());
+        int posicion = position;
+        System.out.println(posicion);
+        Balizas b = misbalizas.get(posicion);
 
-        System.out.println("nombre : " +misbalizas.get(position).name);
-        System.out.println("hora : " + mislecturas.get(position).hora);
-        System.out.println("max_speed : " +mislecturas.get(position).max_speed);
-        System.out.println("humidity : " +mislecturas.get(position).humidity);
-        System.out.println("mean_direction : " +mislecturas.get(position).mean_direction);
-        System.out.println("mean_speed : " +mislecturas.get(position).mean_speed);
-        System.out.println("temperature : " +mislecturas.get(position).temperature);
-        System.out.println("irradiance : " +mislecturas.get(position).irradiance);
-        System.out.println("precipitation : " +mislecturas.get(position).precipitation);
+        ArrayList<Datos> lecturaBaliza = new ArrayList<>();
 
-        viewHolder.getNombre().setText(misbalizas.get(position).name);
-        viewHolder.getHora().setText(mislecturas.get(position).hora);
-        viewHolder.getMax_speed().setText(String.valueOf(mislecturas.get(position).max_speed)+" km/h");
-        viewHolder.getHumidity().setText(String.valueOf(mislecturas.get(position).humidity)+" %");
-        viewHolder.getMean_speed().setText(String.valueOf(mislecturas.get(position).mean_speed)+" m/s");
-        viewHolder.getMean_direction().setText(String.valueOf(mislecturas.get(position).mean_direction)+" º");
-        viewHolder.getTemperature().setText(String.valueOf(mislecturas.get(position).temperature)+" ºC");
-        viewHolder.getIrrandiance().setText(String.valueOf(mislecturas.get(position).irradiance)+" W/m2");
-        viewHolder.getPrecipitation().setText(String.valueOf(mislecturas.get(position).precipitation)+" l/m²");
+        if (mislecturas != null) {
+            for (Datos lectura : mislecturas) {
+                if (lectura != null && lectura.id != null) {
+                    if (lectura.id.equals(b.id)) {
+                        lecturaBaliza.add(lectura);
+                    }
+                }
+            }
+
+            if (lecturaBaliza != null && lecturaBaliza.size() > 0) {
+                System.out.println("size: " + lecturaBaliza.size());
+                viewHolder.getNombre().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).name);
+                viewHolder.getHora().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).hora);
+                viewHolder.getMax_speed().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).max_speed + " km/h");
+                viewHolder.getHumidity().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).humidity + " %");
+                viewHolder.getMean_speed().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).mean_speed + " m/s");
+                viewHolder.getMean_direction().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).mean_direction + " º");
+                viewHolder.getTemperature().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).temperature + " ºC");
+                viewHolder.getPrecipitation().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).precipitation + " l/m²");
+            }
+        }
     }
 
     @Override
     public int getItemCount() {
-        if (misbalizas == null){
+        if (misbalizas == null) {
             return 0;
-        }else{
+        } else {
             return misbalizas.size();
         }
     }

@@ -32,9 +32,6 @@ public class Datos {
         @ColumnInfo(name = "precipitation")
         public double precipitation;
 
-        @ColumnInfo(name = "irradiance")
-        public double irradiance;
-
         @ColumnInfo(name = "hora")
         public String hora;
 }
