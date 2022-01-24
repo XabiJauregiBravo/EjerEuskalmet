@@ -35,7 +35,7 @@ import java.util.List;
 
 public class MasBalizasRVAdapter extends RecyclerView.Adapter<MasBalizasRVAdapter.ViewHolder> {
 
-    public List<Balizas> balizas;
+    public static List<Balizas> balizas;
     private LayoutInflater mInflater;
     private MainActivity main;
     private SectionsPagerAdapter sectionsPagerAdapter;
