@@ -18,9 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ejereuskalmet.Api.Api;
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
+import com.example.ejereuskalmet.Mapa.MapaFragment;
 import com.example.ejereuskalmet.MasBalizas.MasBalizasRVAdapter;
 import com.example.ejereuskalmet.R;
 import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
@@ -50,9 +52,9 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
             while (true) {
                 try {
                     Thread.sleep(300000);
-                    actualizarBalizas((ArrayList<Balizas>) MasBalizasRVAdapter.balizas);
+                    Api.actualizarBalizas((ArrayList<Balizas>) MasBalizasRVAdapter.balizas);
                 } catch (Exception e) {
-                    System.out.println(e);
+                  //  System.out.println(e);
                 }
             }
         }
@@ -141,7 +143,7 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
 
         int posicion = position;
-        System.out.println(posicion);
+        //System.out.println(posicion);
         Balizas b = misbalizas.get(posicion);
 
         ArrayList<Datos> lecturaBaliza = new ArrayList<>();
@@ -156,7 +158,7 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
             }
 
             if (lecturaBaliza != null && lecturaBaliza.size() > 0) {
-                System.out.println("size: " + lecturaBaliza.size());
+               // System.out.println("size: " + lecturaBaliza.size());
                 viewHolder.getNombre().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).name);
                 viewHolder.getHora().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).hora);
                 viewHolder.getMax_speed().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).max_speed + " km/h");
@@ -191,139 +193,5 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
     public void setMislecturas(List<Datos> mislecturas) {
         this.mislecturas = mislecturas;
         notifyDataSetChanged();
-    }
-
-    public void actualizarBalizas(ArrayList<Balizas> misbalizas) {
-
-        for (Balizas baliza : misbalizas) {
-
-            /* Crear todas las lecturas */
-
-            int year = Calendar.getInstance().get(Calendar.YEAR);
-
-            int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-
-            String month1 = "" + month;
-
-            if (month < 10) {
-                month1 = "0" + month;
-                ;
-            }
-
-            int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-
-            Datos lectura = new Datos();
-
-            lectura.id = baliza.id;
-
-            //System.out.println("Size de balizas response : " + response.length());
-
-            RequestQueue queue = Volley.newRequestQueue(main);
-
-            String url = "https://www.euskalmet.euskadi.eus/vamet/stations/readings/" + baliza.id + "/" + year + "/" + month1 + "/" + day + "/readingsData.json";
-            System.out.println(baliza.name + " y su url " + url);
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-
-                        String a[] = {"11", "12", "14", "21", "31", "40", "70"};
-
-                        for (int i = 0; i < a.length; i++) {
-
-                            JSONObject obj1 = (JSONObject) response.get(a[i]);
-                            JSONObject obj2 = (JSONObject) obj1.get("data");
-                            obj2.get(obj2.names().get(0).toString());
-                            JSONObject objfinal = (JSONObject) obj2.get(obj2.names().get(0).toString());
-                            ArrayList<String> horas = new ArrayList<>();
-
-                            for (int j = 0; j < objfinal.names().length(); j++) {
-                                horas.add(objfinal.names().get(j).toString());
-                            }
-                            Collections.sort(horas);
-
-                            lectura.hora = horas.get(horas.size() - 1);
-
-                            lectura.name = baliza.name;
-
-                            switch (a[i]) {
-                                case "11":
-                                    // System.out.println("mean_speed de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    lectura.mean_speed = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    break;
-                                case "12":
-                                    //  System.out.println("mean_direction de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    lectura.mean_direction = (double) objfinal.get(horas.get(horas.size() - 1));
-
-                                    break;
-                                case "14":
-                                    // System.out.println("max_speed de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    lectura.max_speed = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    break;
-                                case "21":
-                                    //System.out.println("temperature de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    lectura.temperature = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    break;
-                                case "31":
-                                    //System.out.println("humidity de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    lectura.humidity = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    break;
-                                case "40":
-                                    //  System.out.println("precipitation de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                    lectura.precipitation = (double) objfinal.get(horas.get(horas.size() - 1));
-                                    break;
-                            }
-                        }
-
-                        HandlerThread ht = new HandlerThread("HandleThread");
-                        ht.start();
-
-                        Handler handlerLeer = new Handler(ht.getLooper());
-
-                        handlerLeer.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (main.db.datosDao().Existe(lectura.id)) {
-
-                                    System.out.println("Nombre lectura: " + lectura.name);
-                                    main.db.datosDao().update(lectura.id, lectura.mean_direction, lectura.mean_speed, lectura.max_speed, lectura.temperature, lectura.humidity, lectura.precipitation, lectura.hora, lectura.name);
-                                } else {
-                                    System.out.println("Nombre lectura: " + lectura.name);
-                                    main.db.datosDao().insert(lectura);
-                                }
-                            }
-                        });
-                    } catch (JSONException e) {
-                        HandlerThread ht = new HandlerThread("HandleThread");
-                        ht.start();
-
-                        Handler handlerLeer = new Handler(ht.getLooper());
-
-                        handlerLeer.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (main.db.datosDao().Existe(lectura.id)) {
-
-                                    System.out.println("Nombre lectura: " + lectura.name);
-                                    main.db.datosDao().update(lectura.id, lectura.mean_direction, lectura.mean_speed, lectura.max_speed, lectura.temperature, lectura.humidity, lectura.precipitation, lectura.hora, lectura.name);
-                                } else {
-                                    System.out.println("Nombre lectura: " + lectura.name);
-                                    main.db.datosDao().insert(lectura);
-                                }
-                            }
-                        });
-                        e.printStackTrace();
-                    }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println(error);
-                    System.out.println("Ha ocurrido un error al realizar la peticion a Euskalmet enla funcion actualizar balizas");
-                }
-            });
-            queue.add(jsonObjectRequest);
-        }
     }
 }

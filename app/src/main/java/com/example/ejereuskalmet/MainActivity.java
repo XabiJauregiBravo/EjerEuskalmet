@@ -7,6 +7,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ejereuskalmet.Api.Api;
 import com.example.ejereuskalmet.DB.AppDatabase;
 import com.google.android.material.tabs.TabLayout;
 import androidx.room.Room;
@@ -28,34 +29,17 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(MainActivity.this, MainActivity.this, getSupportFragmentManager());
+        ViewPager viewPager = binding.viewPager;
+        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setCurrentItem(1);
+        TabLayout tabs = binding.tabs;
+        tabs.setupWithViewPager(viewPager);
 
-        db = Room.databaseBuilder(this.getApplicationContext(), AppDatabase.class, "db-euskalmet").fallbackToDestructiveMigration().build();
+        db = Room.databaseBuilder(this.getApplicationContext(), AppDatabase.class, "db-euskalmet").build();
 
-        // LLAMADA A LA API PARA CONSEGUIR LOS DATOS DE LAS BALIZAS Y PODER MOSTRARLO EN LA LISTA RECICLABLE
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://www.euskalmet.euskadi.eus/vamet/stations/stationList/stationList.json";
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-                MainActivity.this.response1 = response;
-                SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(MainActivity.this, MainActivity.this, getSupportFragmentManager(), response);
-                ViewPager viewPager = binding.viewPager;
-                viewPager.setAdapter(sectionsPagerAdapter);
-                viewPager.setCurrentItem(1);
-                TabLayout tabs = binding.tabs;
-                tabs.setupWithViewPager(viewPager);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("Ha ocurrido un error al realizar la peticion a Euskalmet");
-            }
-        });
-
-        // Access the RequestQueue through your singleton class.
-        queue.add(jsonArrayRequest);
-
+        Api api = new Api(this,queue);
+        api.getBalizasApi();
     }
 }

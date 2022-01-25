@@ -38,11 +38,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MisBalizasFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MisBalizasFragment extends Fragment {
 
     public static List<Balizas> misbalizas = new ArrayList<>();
@@ -57,28 +52,19 @@ public class MisBalizasFragment extends Fragment {
     public MisBalizasFragment() {
         // Required empty public constructor
     }
-    public MisBalizasFragment(JSONArray response, MainActivity mainActivity, SectionsPagerAdapter sectionsPagerAdapter) {
-        this.response = response;
+    public MisBalizasFragment(MainActivity mainActivity, SectionsPagerAdapter sectionsPagerAdapter) {
         this.mainActivity = mainActivity;
         this.sectionsPagerAdapter = sectionsPagerAdapter;
-    }
-
-    public static MisBalizasFragment newInstance(String param1, String param2) {
-        MisBalizasFragment fragment = new MisBalizasFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+
         View inf = inflater.inflate(R.layout.fragment_mis_balizas, container, false);
 
         RecyclerView rvmisbalizas = inf.findViewById(R.id.rvmisbalizas);
@@ -86,67 +72,41 @@ public class MisBalizasFragment extends Fragment {
         misBalizasRVAdapter = new MisBalizasRVAdapter(mainActivity,sectionsPagerAdapter);
 
         rvmisbalizas.setAdapter(misBalizasRVAdapter);
-        HandlerThread ht = new HandlerThread("HandleThread");
-        ht.start();
 
-        Handler handlerLeer = new Handler(ht.getLooper());
+        /** OBSERVER PARA LAS BALIZAS AÑADIDAS **/
 
-        handlerLeer.post(new Runnable() {
+        viewModelMisBalizas = new ViewModelProvider(mainActivity).get(ViewModelMisBalizas.class);
+
+        final Observer<List<Balizas>> nameObserver = new Observer<List<Balizas>>() {
             @Override
-            public void run() {
-                mainActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        viewModelMisBalizas = new ViewModelProvider(mainActivity).get(ViewModelMisBalizas.class);
-
-                        final Observer<List<Balizas>> nameObserver = new Observer<List<Balizas>>() {
-                            @Override
-                            public void onChanged(List<Balizas> dbData) {
-                                if (dbData != null){
-                                    System.out.println("Size de dbData en el fragmento: "+dbData.size());
-                                   // misbalizas = dbData;
-                                    misBalizasRVAdapter.setBalizas(dbData);
-                                } else {
-                                    System.out.println("La lista está vacía");
-                                }
-                            }
-                        };
-                        viewModelMisBalizas.getBalizasActivadas().observe(mainActivity, nameObserver);
-
-                        System.out.println("Size de misbalizas en el fragmento: " + misbalizas.size());
-
-                    }
-                });
+            public void onChanged(List<Balizas> dbData) {
+                if (dbData != null){
+                    misBalizasRVAdapter.setBalizas(dbData);
+                } else {
+                    System.out.println("La lista está vacía");
+                }
             }
-        });
+        };
+        viewModelMisBalizas.getBalizasActivadas().observe(mainActivity, nameObserver);
 
-        handlerLeer.post(new Runnable() {
+
+        /** OBSERVER PARA AÑADIR LAS LECTURAS **/
+
+        viewModelMisBalizas = new ViewModelProvider(mainActivity).get(ViewModelMisBalizas.class);
+
+        final Observer<List<Datos>> nameObserver2 = new Observer<List<Datos>>() {
             @Override
-            public void run() {
-                mainActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        viewModelMisBalizas = new ViewModelProvider(mainActivity).get(ViewModelMisBalizas.class);
-
-                        final Observer<List<Datos>> nameObserver = new Observer<List<Datos>>() {
-                            @Override
-                            public void onChanged(List<Datos> dbData) {
-                                if (dbData != null){
-                                    System.out.println("Size de dbData en el fragmento: "+dbData.size());
-                                    misBalizasRVAdapter.setMislecturas(dbData);
-                                } else {
-                                    System.out.println("La lista está vacía");
-                                }
-                            }
-                        };
-                        viewModelMisBalizas.getAllDatos().observe(mainActivity, nameObserver);
-
-                        System.out.println("Size de mislecturas en el fragmento: " + mislecturas.size());
-
-                    }
-                });
+            public void onChanged(List<Datos> dbData) {
+                if (dbData != null){
+                    //System.out.println("Size de dbData en el fragmento: "+dbData.size());
+                    misBalizasRVAdapter.setMislecturas(dbData);
+                } else {
+                    System.out.println("La lista está vacía");
+                }
             }
-        });
+        };
+        viewModelMisBalizas.getAllDatos().observe(mainActivity, nameObserver2);
+
         return inf;
     }
 
@@ -156,5 +116,4 @@ public class MisBalizasFragment extends Fragment {
     public static void setFalse(Balizas baliza){
         masBalizasRVadapter.setFalse(baliza);
     }
-
 }

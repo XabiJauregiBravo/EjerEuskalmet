@@ -45,13 +45,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private static final int[] TAB_TITLES = new int[]{R.string.tab1, R.string.tab2, R.string.tab3};
     private final Context mContext;
     private MainActivity ma;
-    private JSONArray response1;
 
-    public SectionsPagerAdapter(Context context, MainActivity ma, FragmentManager fm, JSONArray response1) {
+    public SectionsPagerAdapter(Context context, MainActivity ma, FragmentManager fm) {
         super(fm);
         mContext = context;
         this.ma = ma;
-        this.response1 = response1;
     }
 
     @Override
@@ -59,13 +57,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragmento = null;
         switch (position){
             case 0:
-                fragmento = new MisBalizasFragment(response1,ma,this);
+                fragmento = new MisBalizasFragment(ma,this);
                 break;
             case 1:
-                fragmento = new MasBalizasFragment(response1,ma,this);
+                fragmento = new MasBalizasFragment(ma,this);
                 break;
             case 2:
-                fragmento = new MapaFragment();
+                fragmento = new MapaFragment(ma,this);
                 break;
         }
         return fragmento;
@@ -73,11 +71,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public void FuncionAdapter(boolean isChecked,Balizas baliza, MainActivity ma){
         if(isChecked){
-            Toast.makeText(ma, "On en " + baliza.id, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ma, "Activada " + baliza.name, Toast.LENGTH_SHORT).show();
             MisBalizasFragment.setTrue(baliza);
         }
         else {
-            Toast.makeText(ma, "Off en " + baliza.id, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ma, "Desactivada " + baliza.name, Toast.LENGTH_SHORT).show();
             MisBalizasFragment.setFalse(baliza);
         }
     }
