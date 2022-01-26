@@ -368,7 +368,7 @@ public class Api {
                                     mainActivity.db.datosDao().insert(lectura);
                                 }
                             }
-                        });
+                        });/*a*/
                     } catch (JSONException e) {
                         HandlerThread ht = new HandlerThread("HandleThread");
                         ht.start();
