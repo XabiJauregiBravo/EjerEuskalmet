@@ -361,7 +361,6 @@ public class Api {
                             @Override
                             public void run() {
                                 if (mainActivity.db.datosDao().Existe(lectura.id)) {
-
                                     //System.out.println("Nombre lectura: " + lectura.name);
                                     mainActivity.db.datosDao().update(lectura.id, lectura.mean_direction, lectura.mean_speed, lectura.max_speed, lectura.temperature, lectura.humidity, lectura.precipitation, lectura.hora, lectura.name);
                                 } else {

@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
+import com.example.ejereuskalmet.Mapa.MapaFragment;
 import com.example.ejereuskalmet.MasBalizas.MasBalizasRVAdapter;
 import com.example.ejereuskalmet.MasBalizas.ViewModelMasBalizas;
 import com.example.ejereuskalmet.R;
@@ -44,6 +45,7 @@ public class MisBalizasFragment extends Fragment {
     public static List<Datos> mislecturas = new ArrayList<>();
     public static MisBalizasRVAdapter misBalizasRVAdapter = new MisBalizasRVAdapter();
     public static MasBalizasRVAdapter masBalizasRVadapter = new MasBalizasRVAdapter();
+    public static MapaFragment mapaFragment = new MapaFragment();
     private ViewModelMisBalizas viewModelMisBalizas;
     private static JSONArray response;
     private MainActivity mainActivity;

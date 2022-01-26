@@ -90,6 +90,8 @@ public class MasBalizasRVAdapter extends RecyclerView.Adapter<MasBalizasRVAdapte
         } else {
             if (balizas.get(position).activated.equals("true")) {
                 viewHolder.getSwitch().setChecked(true);
+            }else{
+                viewHolder.getSwitch().setChecked(false);
             }
             viewHolder.getSwitch().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

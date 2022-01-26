@@ -45,8 +45,9 @@ public class MapaFragment extends SupportMapFragment implements GoogleMap.OnInfo
 
     public MainActivity ma;
     public SectionsPagerAdapter sectionsPagerAdapter;
-    public MisBalizasRVAdapter misBalizasRVAdapter;
+    public MisBalizasRVAdapter misBalizasRVAdapter = new MisBalizasRVAdapter();
     public ViewModelMisBalizas viewModelMisBalizas;
+    public List<Balizas> balizas = new ArrayList<>();
 
     public MapaFragment() {
         // Required empty public constructor
@@ -144,7 +145,6 @@ public class MapaFragment extends SupportMapFragment implements GoogleMap.OnInfo
                 if (b.activated.equals("true")) {
                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                     sectionsPagerAdapter.FuncionAdapter(false, b, ma);
-                    /** INSERTAR FUNCION QUE DESACTIVA **/
                 } else {
                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                     sectionsPagerAdapter.FuncionAdapter(true, b, ma);
@@ -152,5 +152,4 @@ public class MapaFragment extends SupportMapFragment implements GoogleMap.OnInfo
             }
         }
     }
-
 }
