@@ -132,6 +132,7 @@ public class MasBalizasFragment extends Fragment {
 
                     TextoBusqueda = TextoBusqueda + "%";
                     System.out.println("Texto busqueda : " + TextoBusqueda);
+
                     HandlerThread ht = new HandlerThread("HandleThread");
                     ht.start();
 
@@ -171,7 +172,6 @@ public class MasBalizasFragment extends Fragment {
                 return false;
             }
         });
-
         return inf;
     }
 }

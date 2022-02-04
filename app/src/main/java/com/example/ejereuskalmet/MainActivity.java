@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
 
-        db = Room.databaseBuilder(this.getApplicationContext(), AppDatabase.class, "db-euskalmet").build();
+        db = Room.databaseBuilder(this.getApplicationContext(), AppDatabase.class, "db-euskalmet").fallbackToDestructiveMigration().build();
 
         RequestQueue queue = Volley.newRequestQueue(this);
         Api api = new Api(this,queue);

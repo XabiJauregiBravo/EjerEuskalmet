@@ -129,7 +129,7 @@ public class Api {
                             mainActivity.db.balizasDao().insert(baliza);
                         }
 
-                        /** RECOGER DATOS METEOROLOGICOS BALIZAS**/
+                        /** RECOGER DATOS METEOROLOGICOS BALIZAS **/
 
                         int year = Calendar.getInstance().get(Calendar.YEAR);
 
@@ -139,19 +139,25 @@ public class Api {
 
                         if (month < 10) {
                             month1 = "0" + month;
-                            ;
+
                         }
 
                         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
+                        String day1 = "" + day;
+
+                        if (day < 10) {
+                            day1 = "0" + day;
+
+                        }
                         Datos lectura = new Datos();
 
                         lectura.id = baliza.id;
 
                         RequestQueue queue2 = Volley.newRequestQueue(mainActivity);
 
-                        String url2 = "https://www.euskalmet.euskadi.eus/vamet/stations/readings/" + baliza.id + "/" + year + "/" + month1 + "/" + day + "/readingsData.json";
-                        //System.out.println(baliza.name+ " y su url "+url);
+                        String url2 = "https://www.euskalmet.euskadi.eus/vamet/stations/readings/" + baliza.id + "/" + year + "/" + month1 + "/" + day1 + "/readingsData.json";
+                        System.out.println(baliza.name+ " y su url "+url2);
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {

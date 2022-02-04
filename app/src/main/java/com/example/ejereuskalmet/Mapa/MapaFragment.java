@@ -1,29 +1,16 @@
 package com.example.ejereuskalmet.Mapa;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.ejereuskalmet.DB.Balizas;
-import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
 import com.example.ejereuskalmet.MasBalizas.MasBalizasRVAdapter;
-import com.example.ejereuskalmet.MasBalizas.ViewModelMasBalizas;
 import com.example.ejereuskalmet.MisBalizas.MisBalizasRVAdapter;
 import com.example.ejereuskalmet.MisBalizas.ViewModelMisBalizas;
 import com.example.ejereuskalmet.R;
@@ -37,7 +24,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.ArrayList;
 import java.util.List;
 

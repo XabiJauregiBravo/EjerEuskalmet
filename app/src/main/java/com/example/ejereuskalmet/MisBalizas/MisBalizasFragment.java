@@ -100,7 +100,6 @@ public class MisBalizasFragment extends Fragment {
             @Override
             public void onChanged(List<Datos> dbData) {
                 if (dbData != null){
-                    //System.out.println("Size de dbData en el fragmento: "+dbData.size());
                     misBalizasRVAdapter.setMislecturas(dbData);
                 } else {
                     System.out.println("La lista está vacía");
