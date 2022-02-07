@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(MainActivity.this, MainActivity.this, getSupportFragmentManager());
         ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(2);
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
 

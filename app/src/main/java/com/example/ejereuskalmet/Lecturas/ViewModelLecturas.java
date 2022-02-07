@@ -1,4 +1,4 @@
-package com.example.ejereuskalmet.MisBalizas;
+package com.example.ejereuskalmet.Lecturas;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -7,7 +7,7 @@ import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
 import java.util.List;
 
-public class ViewModelMisBalizas extends ViewModel {
+public class ViewModelLecturas extends ViewModel {
     public LiveData<List<Datos>> balizasDatos;
     public MainActivity mainActivity;
 

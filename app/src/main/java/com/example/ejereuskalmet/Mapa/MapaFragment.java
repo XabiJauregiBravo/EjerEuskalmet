@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.MainActivity;
-import com.example.ejereuskalmet.MasBalizas.MasBalizasRVAdapter;
-import com.example.ejereuskalmet.MisBalizas.MisBalizasRVAdapter;
-import com.example.ejereuskalmet.MisBalizas.ViewModelMisBalizas;
+import com.example.ejereuskalmet.Balizas.MasBalizasRVAdapter;
+import com.example.ejereuskalmet.Lecturas.LecturasRVAdapter;
+import com.example.ejereuskalmet.Lecturas.ViewModelLecturas;
 import com.example.ejereuskalmet.R;
 import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,8 +31,8 @@ public class MapaFragment extends SupportMapFragment implements GoogleMap.OnInfo
 
     public MainActivity ma;
     public SectionsPagerAdapter sectionsPagerAdapter;
-    public MisBalizasRVAdapter misBalizasRVAdapter = new MisBalizasRVAdapter();
-    public ViewModelMisBalizas viewModelMisBalizas;
+    public LecturasRVAdapter lecturasRVAdapter = new LecturasRVAdapter();
+    public ViewModelLecturas viewModelLecturas;
     public List<Balizas> balizas = new ArrayList<>();
 
     public MapaFragment() {
@@ -61,23 +61,23 @@ public class MapaFragment extends SupportMapFragment implements GoogleMap.OnInfo
         View rootview = super.onCreateView(inflater, container, savedInstanceState);
         getMapAsync(this);
 
-        misBalizasRVAdapter = new MisBalizasRVAdapter(ma, sectionsPagerAdapter);
+        lecturasRVAdapter = new LecturasRVAdapter(ma, sectionsPagerAdapter);
 
         /** OBSERVER PARA LAS BALIZAS AÑADIDAS **/
 
-        viewModelMisBalizas = new ViewModelProvider(ma).get(ViewModelMisBalizas.class);
+        viewModelLecturas = new ViewModelProvider(ma).get(ViewModelLecturas.class);
 
         final Observer<List<Balizas>> nameObserver = new Observer<List<Balizas>>() {
             @Override
             public void onChanged(List<Balizas> dbData) {
                 if (dbData != null) {
-                    misBalizasRVAdapter.setBalizas(dbData);
+                    lecturasRVAdapter.setBalizas(dbData);
                 } else {
                     System.out.println("La lista está vacía");
                 }
             }
         };
-        viewModelMisBalizas.getBalizasActivadas().observe(ma, nameObserver);
+        viewModelLecturas.getBalizasActivadas().observe(ma, nameObserver);
 
 
         return rootview;

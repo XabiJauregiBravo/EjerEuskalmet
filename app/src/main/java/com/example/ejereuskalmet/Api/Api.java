@@ -1,11 +1,7 @@
 package com.example.ejereuskalmet.Api;
 
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
-
-import androidx.room.Room;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -13,7 +9,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.ejereuskalmet.DB.AppDatabase;
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
@@ -30,7 +25,6 @@ public class Api {
 
     public static MainActivity mainActivity;
     public static RequestQueue queue;
-
 
     public Api(MainActivity ma, RequestQueue queue) {
         this.mainActivity = ma;

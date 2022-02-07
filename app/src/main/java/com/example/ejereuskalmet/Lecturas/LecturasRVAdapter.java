@@ -1,9 +1,7 @@
-package com.example.ejereuskalmet.MisBalizas;
+package com.example.ejereuskalmet.Lecturas;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,30 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.ejereuskalmet.Api.Api;
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
-import com.example.ejereuskalmet.Mapa.MapaFragment;
-import com.example.ejereuskalmet.MasBalizas.MasBalizasRVAdapter;
+import com.example.ejereuskalmet.Balizas.MasBalizasRVAdapter;
 import com.example.ejereuskalmet.R;
 import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
-public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapter.ViewHolder> {
+public class LecturasRVAdapter extends RecyclerView.Adapter<LecturasRVAdapter.ViewHolder> {
 
     public List<Balizas> misbalizas = new ArrayList<>();
     public List<Datos> mislecturas = new ArrayList<>();
@@ -62,10 +48,10 @@ public class MisBalizasRVAdapter extends RecyclerView.Adapter<MisBalizasRVAdapte
 
     Thread hilo = new Thread(runnable);
 
-    public MisBalizasRVAdapter() {
+    public LecturasRVAdapter() {
     }
 
-    public MisBalizasRVAdapter(Context context, SectionsPagerAdapter sectionsPagerAdapter) {
+    public LecturasRVAdapter(Context context, SectionsPagerAdapter sectionsPagerAdapter) {
         this.mInflater = LayoutInflater.from(context);
         this.main = (MainActivity) context;
         this.sectionsPagerAdapter = sectionsPagerAdapter;

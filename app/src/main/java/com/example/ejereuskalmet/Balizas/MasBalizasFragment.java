@@ -1,4 +1,4 @@
-package com.example.ejereuskalmet.MasBalizas;
+package com.example.ejereuskalmet.Balizas;
 
 import android.os.Bundle;
 
@@ -15,39 +15,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.ejereuskalmet.Api.Api;
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
-import com.example.ejereuskalmet.Mapa.MapaFragment;
-import com.example.ejereuskalmet.MisBalizas.MisBalizasRVAdapter;
-import com.example.ejereuskalmet.MisBalizas.ViewModelMisBalizas;
+import com.example.ejereuskalmet.Lecturas.LecturasRVAdapter;
+import com.example.ejereuskalmet.Lecturas.ViewModelLecturas;
 import com.example.ejereuskalmet.R;
 import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.DataInput;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 public class MasBalizasFragment extends Fragment {
 
-    private ViewModelMasBalizas viewModelMasBalizas;
-    private ViewModelMisBalizas viewModelMisBalizas;
+    private ViewModelBalizas viewModelBalizas;
+    private ViewModelLecturas viewModelLecturas;
     private MainActivity mainActivity;
     private SectionsPagerAdapter sectionsPagerAdapter;
 
@@ -86,7 +69,7 @@ public class MasBalizasFragment extends Fragment {
 
         /** OBSERVER PARA LAS BALIZAS **/
 
-        viewModelMasBalizas = new ViewModelProvider(mainActivity).get(ViewModelMasBalizas.class);
+        viewModelBalizas = new ViewModelProvider(mainActivity).get(ViewModelBalizas.class);
 
         final Observer<List<Balizas>> nameObserver = new Observer<List<Balizas>>() {
             @Override
@@ -98,25 +81,25 @@ public class MasBalizasFragment extends Fragment {
                 }
             }
         };
-        viewModelMasBalizas.getBalizas().observe(mainActivity, nameObserver);
+        viewModelBalizas.getBalizas().observe(mainActivity, nameObserver);
 
-        MisBalizasRVAdapter misBalizasRVAdapter = new MisBalizasRVAdapter(mainActivity, sectionsPagerAdapter);
+        LecturasRVAdapter lecturasRVAdapter = new LecturasRVAdapter(mainActivity, sectionsPagerAdapter);
 
         /** OBSERVER PARA LOS DATOS DE LAS BALIZAS **/
 
-        viewModelMisBalizas = new ViewModelProvider(mainActivity).get(ViewModelMisBalizas.class);
+        viewModelLecturas = new ViewModelProvider(mainActivity).get(ViewModelLecturas.class);
 
         final Observer<List<Datos>> nameObserver2 = new Observer<List<Datos>>() {
             @Override
             public void onChanged(List<Datos> dbData) {
                 if (dbData != null) {
-                    misBalizasRVAdapter.setMislecturas(dbData);
+                    lecturasRVAdapter.setMislecturas(dbData);
                 } else {
                     System.out.println("La lista está vacía");
                 }
             }
         };
-        viewModelMisBalizas.getAllDatos().observe(mainActivity, nameObserver2);
+        viewModelLecturas.getAllDatos().observe(mainActivity, nameObserver2);
 
 
         /** BUSCADOR DE BALIZAS **/
