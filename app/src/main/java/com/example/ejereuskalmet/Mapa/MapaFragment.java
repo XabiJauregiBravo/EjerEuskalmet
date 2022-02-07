@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.MainActivity;
-import com.example.ejereuskalmet.Balizas.MasBalizasRVAdapter;
+import com.example.ejereuskalmet.Balizas.BalizasRVAdapter;
 import com.example.ejereuskalmet.Lecturas.LecturasRVAdapter;
 import com.example.ejereuskalmet.Lecturas.ViewModelLecturas;
 import com.example.ejereuskalmet.R;
@@ -108,7 +108,7 @@ public class MapaFragment extends SupportMapFragment implements GoogleMap.OnInfo
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
 
-        for (Balizas b : MasBalizasRVAdapter.balizas) {
+        for (Balizas b : BalizasRVAdapter.balizas) {
 
             if (b.activated.equals("true")) {
                 LatLng position2 = new LatLng(b.x, b.y);
@@ -126,7 +126,7 @@ public class MapaFragment extends SupportMapFragment implements GoogleMap.OnInfo
     @Override
     public void onInfoWindowClick(Marker marker) {
 
-        for (Balizas b : MasBalizasRVAdapter.balizas) {
+        for (Balizas b : BalizasRVAdapter.balizas) {
             if (b.name.equals(marker.getTitle())) {
                 if (b.activated.equals("true")) {
                     marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));

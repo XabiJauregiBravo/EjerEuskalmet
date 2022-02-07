@@ -13,7 +13,7 @@ import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.Grafico.GraficoFragment;
 import com.example.ejereuskalmet.MainActivity;
 import com.example.ejereuskalmet.Mapa.MapaFragment;
-import com.example.ejereuskalmet.Balizas.MasBalizasFragment;
+import com.example.ejereuskalmet.Balizas.BalizasFragment;
 import com.example.ejereuskalmet.Lecturas.LecturasFragment;
 import com.example.ejereuskalmet.R;
 
@@ -45,7 +45,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 fragmento = new LecturasFragment(ma,this);
                 break;
             case 2:
-                fragmento = new MasBalizasFragment(ma,this);
+                fragmento = new BalizasFragment(ma,this);
                 break;
             case 3:
                 fragmento = new MapaFragment(ma,this);

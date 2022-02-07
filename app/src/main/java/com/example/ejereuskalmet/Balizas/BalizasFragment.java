@@ -27,7 +27,7 @@ import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
 
 import java.util.List;
 
-public class MasBalizasFragment extends Fragment {
+public class BalizasFragment extends Fragment {
 
     private ViewModelBalizas viewModelBalizas;
     private ViewModelLecturas viewModelLecturas;
@@ -38,11 +38,11 @@ public class MasBalizasFragment extends Fragment {
 
     private static String TextoBusqueda = "";
 
-    public MasBalizasFragment() {
+    public BalizasFragment() {
         // Required empty public constructor
     }
 
-    public MasBalizasFragment(MainActivity mainActivity, SectionsPagerAdapter sectionsPagerAdapter) {
+    public BalizasFragment(MainActivity mainActivity, SectionsPagerAdapter sectionsPagerAdapter) {
         this.mainActivity = mainActivity;
         this.sectionsPagerAdapter = sectionsPagerAdapter;
     }
@@ -60,12 +60,12 @@ public class MasBalizasFragment extends Fragment {
         editTextBusqueda = inf.findViewById(R.id.editTextBusqueda);
         TextoBusqueda = editTextBusqueda.getText().toString();
 
-        MasBalizasRVAdapter masBalizasRVAdapter = new MasBalizasRVAdapter(mainActivity, sectionsPagerAdapter);
+        BalizasRVAdapter balizasRVAdapter = new BalizasRVAdapter(mainActivity, sectionsPagerAdapter);
 
         RecyclerView rvmasbalizas = inf.findViewById(R.id.rvmasbalizas);
         rvmasbalizas.setLayoutManager(new LinearLayoutManager(mainActivity));
 
-        rvmasbalizas.setAdapter(masBalizasRVAdapter);
+        rvmasbalizas.setAdapter(balizasRVAdapter);
 
         /** OBSERVER PARA LAS BALIZAS **/
 
@@ -75,7 +75,7 @@ public class MasBalizasFragment extends Fragment {
             @Override
             public void onChanged(List<Balizas> dbData) {
                 if (dbData != null) {
-                    masBalizasRVAdapter.setBalizas(dbData);
+                    balizasRVAdapter.setBalizas(dbData);
                 } else {
                     System.out.println("La lista está vacía");
                 }
@@ -127,10 +127,10 @@ public class MasBalizasFragment extends Fragment {
 
                             System.out.println("" + mainActivity.db.balizasDao().Busqueda(TextoBusqueda));
 
-                            int PosicionPrimerBuscada = masBalizasRVAdapter.getItemCount() - 1;
+                            int PosicionPrimerBuscada = balizasRVAdapter.getItemCount() - 1;
 
-                            for (int i = 0; i < masBalizasRVAdapter.balizas.size(); i++) {
-                                if (masBalizasRVAdapter.balizas.get(i).name.equals(mainActivity.db.balizasDao().Busqueda(TextoBusqueda))) {
+                            for (int i = 0; i < balizasRVAdapter.balizas.size(); i++) {
+                                if (balizasRVAdapter.balizas.get(i).name.equals(mainActivity.db.balizasDao().Busqueda(TextoBusqueda))) {
                                     PosicionPrimerBuscada = i;
                                 }
                             }

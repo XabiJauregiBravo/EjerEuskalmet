@@ -1,6 +1,5 @@
 package com.example.ejereuskalmet.Grafico;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -20,8 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.ejereuskalmet.Balizas.MasBalizasRVAdapter;
-import com.example.ejereuskalmet.DB.Balizas;
+import com.example.ejereuskalmet.Balizas.BalizasRVAdapter;
 import com.example.ejereuskalmet.MainActivity;
 import com.example.ejereuskalmet.R;
 import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
@@ -35,8 +33,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 public class GraficoFragment extends Fragment {
 
@@ -74,10 +70,10 @@ public class GraficoFragment extends Fragment {
         gvGrafico = inf.findViewById(R.id.idGraphView);
         cbBaliza = inf.findViewById(R.id.cbBaliza);
 
-        String[] balizas = new String[MasBalizasRVAdapter.balizas.size()];
+        String[] balizas = new String[BalizasRVAdapter.balizas.size()];
 
-        for (int i = 0; i < MasBalizasRVAdapter.balizas.size(); i++) {
-            balizas[i] = MasBalizasRVAdapter.balizas.get(i).name;
+        for (int i = 0; i < BalizasRVAdapter.balizas.size(); i++) {
+            balizas[i] = BalizasRVAdapter.balizas.get(i).name;
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(inf.getContext(),R.layout.support_simple_spinner_dropdown_item,balizas);
@@ -134,9 +130,9 @@ public class GraficoFragment extends Fragment {
                             tvFecha.setText("Fecha seleccionada: " + day1 + "/" + month1 + "/" + year);
 
                             String idBaliza = "C069";
-                            for (int i = 0; i < MasBalizasRVAdapter.balizas.size(); i++) {
-                                if (MasBalizasRVAdapter.balizas.get(i).name.equals(cbBaliza.getSelectedItem().toString())) {
-                                    idBaliza = MasBalizasRVAdapter.balizas.get(i).id;
+                            for (int i = 0; i < BalizasRVAdapter.balizas.size(); i++) {
+                                if (BalizasRVAdapter.balizas.get(i).name.equals(cbBaliza.getSelectedItem().toString())) {
+                                    idBaliza = BalizasRVAdapter.balizas.get(i).id;
                                 }
                             }
 

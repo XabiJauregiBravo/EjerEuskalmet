@@ -14,7 +14,7 @@ import com.example.ejereuskalmet.Api.Api;
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
-import com.example.ejereuskalmet.Balizas.MasBalizasRVAdapter;
+import com.example.ejereuskalmet.Balizas.BalizasRVAdapter;
 import com.example.ejereuskalmet.R;
 import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
 
@@ -38,7 +38,7 @@ public class LecturasRVAdapter extends RecyclerView.Adapter<LecturasRVAdapter.Vi
             while (true) {
                 try {
                     Thread.sleep(300000);
-                    Api.actualizarBalizas((ArrayList<Balizas>) MasBalizasRVAdapter.balizas);
+                    Api.actualizarBalizas((ArrayList<Balizas>) BalizasRVAdapter.balizas);
                 } catch (Exception e) {
                   //  System.out.println(e);
                 }

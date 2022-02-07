@@ -21,7 +21,7 @@ import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MasBalizasRVAdapter extends RecyclerView.Adapter<MasBalizasRVAdapter.ViewHolder> {
+public class BalizasRVAdapter extends RecyclerView.Adapter<BalizasRVAdapter.ViewHolder> {
 
 
     public static List<Balizas> balizas = new ArrayList<Balizas>();
@@ -29,10 +29,10 @@ public class MasBalizasRVAdapter extends RecyclerView.Adapter<MasBalizasRVAdapte
     private MainActivity main;
     private SectionsPagerAdapter sectionsPagerAdapter;
 
-    public MasBalizasRVAdapter() {
+    public BalizasRVAdapter() {
     }
 
-    public MasBalizasRVAdapter(Context context, SectionsPagerAdapter sectionsPagerAdapter) {
+    public BalizasRVAdapter(Context context, SectionsPagerAdapter sectionsPagerAdapter) {
         this.mInflater = LayoutInflater.from(context);
         this.main = (MainActivity) context;
         this.sectionsPagerAdapter = sectionsPagerAdapter;
