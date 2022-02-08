@@ -8,7 +8,6 @@ import com.example.ejereuskalmet.MainActivity;
 import java.util.List;
 
 public class ViewModelLecturas extends ViewModel {
-    public LiveData<List<Datos>> balizasDatos;
     public MainActivity mainActivity;
 
     public LiveData<List<Datos>> getAllDatos() {

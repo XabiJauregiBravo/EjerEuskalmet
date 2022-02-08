@@ -1,13 +1,11 @@
 package com.example.ejereuskalmet.Balizas;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.view.KeyEvent;
@@ -16,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
@@ -24,7 +21,6 @@ import com.example.ejereuskalmet.Lecturas.LecturasRVAdapter;
 import com.example.ejereuskalmet.Lecturas.ViewModelLecturas;
 import com.example.ejereuskalmet.R;
 import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
-
 import java.util.List;
 
 public class BalizasFragment extends Fragment {
@@ -33,9 +29,7 @@ public class BalizasFragment extends Fragment {
     private ViewModelLecturas viewModelLecturas;
     private MainActivity mainActivity;
     private SectionsPagerAdapter sectionsPagerAdapter;
-
     private EditText editTextBusqueda;
-
     private static String TextoBusqueda = "";
 
     public BalizasFragment() {
@@ -101,9 +95,7 @@ public class BalizasFragment extends Fragment {
         };
         viewModelLecturas.getAllDatos().observe(mainActivity, nameObserver2);
 
-
         /** BUSCADOR DE BALIZAS **/
-
 
         editTextBusqueda.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -148,7 +140,6 @@ public class BalizasFragment extends Fragment {
                                 }
                             });
                         }
-
                     });
                     return true;
                 }

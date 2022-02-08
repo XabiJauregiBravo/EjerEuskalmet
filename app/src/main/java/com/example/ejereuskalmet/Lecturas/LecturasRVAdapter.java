@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.ejereuskalmet.Api.Api;
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.DB.Datos;
@@ -129,7 +127,7 @@ public class LecturasRVAdapter extends RecyclerView.Adapter<LecturasRVAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
 
         int posicion = position;
-        //System.out.println(posicion);
+
         Balizas b = misbalizas.get(posicion);
 
         ArrayList<Datos> lecturaBaliza = new ArrayList<>();
@@ -144,7 +142,6 @@ public class LecturasRVAdapter extends RecyclerView.Adapter<LecturasRVAdapter.Vi
             }
 
             if (lecturaBaliza != null && lecturaBaliza.size() > 0) {
-               // System.out.println("size: " + lecturaBaliza.size());
                 viewHolder.getNombre().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).name);
                 viewHolder.getHora().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).hora);
                 viewHolder.getMax_speed().setText(lecturaBaliza.get(lecturaBaliza.size() - 1).max_speed + " km/h");

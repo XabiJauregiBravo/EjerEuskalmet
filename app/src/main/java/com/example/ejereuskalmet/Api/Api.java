@@ -12,11 +12,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.DB.Datos;
 import com.example.ejereuskalmet.MainActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -30,6 +28,9 @@ public class Api {
         this.mainActivity = ma;
         this.queue = queue;
     }
+
+
+    /** FUNCION QUE HACE UNA PETICION PARA RECOGER LAS BALIZAS **/
 
     public static void getBalizasApi() {
 
@@ -68,8 +69,9 @@ public class Api {
         });
     }
 
-    public static void getDatosbalizasApi(JSONArray responseBalizas) {
+    /** FUNCION PARA INSERTAR LAS BALIZAS Y LAS LECTURAS EN LA BASE DE DATOS **/
 
+    public static void getDatosbalizasApi(JSONArray responseBalizas) {
 
         HandlerThread ht = new HandlerThread("HandleThread");
         ht.start();
@@ -133,7 +135,6 @@ public class Api {
 
                         if (month < 10) {
                             month1 = "0" + month;
-
                         }
 
                         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -142,16 +143,14 @@ public class Api {
 
                         if (day < 10) {
                             day1 = "0" + day;
-
                         }
                         Datos lectura = new Datos();
 
                         lectura.id = baliza.id;
 
                         RequestQueue queue2 = Volley.newRequestQueue(mainActivity);
-
                         String url2 = "https://www.euskalmet.euskadi.eus/vamet/stations/readings/" + baliza.id + "/" + year + "/" + month1 + "/" + day1 + "/readingsData.json";
-                        System.out.println(baliza.name+ " y su url "+url2);
+
                         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -178,29 +177,22 @@ public class Api {
 
                                         switch (a[i]) {
                                             case "11":
-                                                // System.out.println("mean_speed de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
                                                 lectura.mean_speed = (double) objfinal.get(horas.get(horas.size() - 1));
                                                 break;
                                             case "12":
-                                                //  System.out.println("mean_direction de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
                                                 lectura.mean_direction = (double) objfinal.get(horas.get(horas.size() - 1));
-
                                                 break;
                                             case "14":
-                                                // System.out.println("max_speed de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
                                                 lectura.max_speed = (double) objfinal.get(horas.get(horas.size() - 1));
                                                 break;
                                             case "21":
-                                                //System.out.println("temperature de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
                                                 lectura.temperature = (double) objfinal.get(horas.get(horas.size() - 1));
                                                 break;
                                             case "31":
-                                                //System.out.println("humidity de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                                lectura.humidity = (double) objfinal.get(horas.get(horas.size() - 1));
+                                               lectura.humidity = (double) objfinal.get(horas.get(horas.size() - 1));
                                                 break;
                                             case "40":
-                                                //  System.out.println("precipitation de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
-                                                lectura.precipitation = (double) objfinal.get(horas.get(horas.size() - 1));
+                                                 lectura.precipitation = (double) objfinal.get(horas.get(horas.size() - 1));
                                                 break;
                                         }
                                     }
@@ -214,11 +206,8 @@ public class Api {
                                         @Override
                                         public void run() {
                                             if (mainActivity.db.datosDao().Existe(lectura.id)) {
-
-                                                //  System.out.println("Nombre lectura: " + lectura.name);
                                                 mainActivity.db.datosDao().update(lectura.id, lectura.mean_direction, lectura.mean_speed, lectura.max_speed, lectura.temperature, lectura.humidity, lectura.precipitation, lectura.hora, lectura.name);
                                             } else {
-                                                //  System.out.println("Nombre lectura: " + lectura.name);
                                                 mainActivity.db.datosDao().insert(lectura);
                                             }
                                         }
@@ -233,11 +222,8 @@ public class Api {
                                         @Override
                                         public void run() {
                                             if (mainActivity.db.datosDao().Existe(lectura.id)) {
-
-                                                //  System.out.println("Nombre lectura: " + lectura.name);
                                                 mainActivity.db.datosDao().update(lectura.id, lectura.mean_direction, lectura.mean_speed, lectura.max_speed, lectura.temperature, lectura.humidity, lectura.precipitation, lectura.hora, lectura.name);
                                             } else {
-                                                //  System.out.println("Nombre lectura: " + lectura.name);
                                                 mainActivity.db.datosDao().insert(lectura);
                                             }
                                         }
@@ -261,7 +247,6 @@ public class Api {
                                     public void run() {
                                         mainActivity.db.balizasDao().delete(baliza);
                                     }
-
                                 });
                             }
                         });
@@ -272,11 +257,13 @@ public class Api {
         });
     }
 
+    /** FUNCION QUE ACTUALIZA LAS LECTURAS **/
+
     public static void actualizarBalizas(ArrayList<Balizas> misbalizas) {
 
         for (Balizas baliza : misbalizas) {
 
-            /* Crear todas las lecturas */
+            /** Crear todas las lecturas **/
 
             int year = Calendar.getInstance().get(Calendar.YEAR);
 
@@ -294,11 +281,8 @@ public class Api {
             Datos lectura = new Datos();
 
             lectura.id = baliza.id;
-
-            //System.out.println("Size de balizas response : " + response.length());
-
             String url = "https://www.euskalmet.euskadi.eus/vamet/stations/readings/" + baliza.id + "/" + year + "/" + month1 + "/" + day + "/readingsData.json";
-            //System.out.println(baliza.name + " y su url " + url);
+
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
@@ -325,28 +309,21 @@ public class Api {
 
                             switch (a[i]) {
                                 case "11":
-                                    // System.out.println("mean_speed de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
                                     lectura.mean_speed = (double) objfinal.get(horas.get(horas.size() - 1));
                                     break;
                                 case "12":
-                                    //  System.out.println("mean_direction de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
                                     lectura.mean_direction = (double) objfinal.get(horas.get(horas.size() - 1));
-
                                     break;
                                 case "14":
-                                    // System.out.println("max_speed de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
                                     lectura.max_speed = (double) objfinal.get(horas.get(horas.size() - 1));
                                     break;
                                 case "21":
-                                    //System.out.println("temperature de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
                                     lectura.temperature = (double) objfinal.get(horas.get(horas.size() - 1));
                                     break;
                                 case "31":
-                                    //System.out.println("humidity de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
                                     lectura.humidity = (double) objfinal.get(horas.get(horas.size() - 1));
                                     break;
                                 case "40":
-                                    //  System.out.println("precipitation de " + baliza.id + " en la hora " + horas.get(horas.size() - 1) + " : " + objfinal.get(horas.get(horas.size() - 1)));
                                     lectura.precipitation = (double) objfinal.get(horas.get(horas.size() - 1));
                                     break;
                             }
@@ -361,14 +338,12 @@ public class Api {
                             @Override
                             public void run() {
                                 if (mainActivity.db.datosDao().Existe(lectura.id)) {
-                                    //System.out.println("Nombre lectura: " + lectura.name);
                                     mainActivity.db.datosDao().update(lectura.id, lectura.mean_direction, lectura.mean_speed, lectura.max_speed, lectura.temperature, lectura.humidity, lectura.precipitation, lectura.hora, lectura.name);
                                 } else {
-                                    //System.out.println("Nombre lectura: " + lectura.name);
                                     mainActivity.db.datosDao().insert(lectura);
                                 }
                             }
-                        });/*a*/
+                        });
                     } catch (JSONException e) {
                         HandlerThread ht = new HandlerThread("HandleThread");
                         ht.start();
@@ -379,11 +354,8 @@ public class Api {
                             @Override
                             public void run() {
                                 if (mainActivity.db.datosDao().Existe(lectura.id)) {
-
-                                    //System.out.println("Nombre lectura: " + lectura.name);
                                     mainActivity.db.datosDao().update(lectura.id, lectura.mean_direction, lectura.mean_speed, lectura.max_speed, lectura.temperature, lectura.humidity, lectura.precipitation, lectura.hora, lectura.name);
                                 } else {
-                                    //System.out.println("Nombre lectura: " + lectura.name);
                                     mainActivity.db.datosDao().insert(lectura);
                                 }
                             }
@@ -395,8 +367,7 @@ public class Api {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    //System.out.println(error);
-                    System.out.println("Ha ocurrido un error al realizar la peticion a Euskalmet enla funcion actualizar balizas");
+                    System.out.println("Ha ocurrido un error al realizar la peticion a Euskalmet en la funcion actualizar balizas");
                 }
             });
             queue.add(jsonObjectRequest);

@@ -5,14 +5,14 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9C27B0"
+    android:background="@android:color/holo_blue_dark"
     tools:context=".Grafico.GraficoFragment">
 
     <Button
         android:id="@+id/btnFecha"
-        android:layout_width="103dp"
-        android:layout_height="58dp"
-        android:text="Cambiar Fecha"
+        android:layout_width="154dp"
+        android:layout_height="64dp"
+        android:text="Cambiar Gráfico"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
@@ -27,6 +27,7 @@
         android:layout_height="40dp"
         android:text="Elige una fecha"
         android:textAlignment="center"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,8 +50,8 @@
 
     <Spinner
         android:id="@+id/cbBaliza"
-        android:layout_width="268dp"
-        android:layout_height="54dp"
+        android:layout_width="207dp"
+        android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"

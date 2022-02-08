@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light"
+    android:background="@drawable/fondoandroid"
     tools:context=".Balizas.BalizasFragment">
 
     <LinearLayout
@@ -15,11 +15,12 @@
             android:id="@+id/editTextBusqueda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:ems="10"
             android:hint="Introduce una letra y pulsa enter para buscar"
-            android:maxLength="1"
             android:inputType="textCapCharacters"
+            android:maxLength="1"
+            android:textColor="@color/black"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <androidx.recyclerview.widget.RecyclerView

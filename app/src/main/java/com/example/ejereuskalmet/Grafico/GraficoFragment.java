@@ -12,7 +12,6 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,7 +26,6 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -87,7 +85,7 @@ public class GraficoFragment extends Fragment {
                 int day = cldr.get(Calendar.DAY_OF_MONTH);
                 int month = cldr.get(Calendar.MONTH);
                 int year = cldr.get(Calendar.YEAR);
-                // date picker dialog
+
                 picker[0] = new DatePickerDialog(inf.getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -108,26 +106,13 @@ public class GraficoFragment extends Fragment {
 
                         int monthHoy = Calendar.getInstance().get(Calendar.MONTH) + 1;
 
-                        String month1Hoy = "" + monthHoy;
-
-                        if (monthHoy < 10) {
-                            month1Hoy = "0" + monthHoy;
-
-                        }
-
                         int dayHoy = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
-                        String day1Hoy = "" + dayHoy;
-
-                        if (dayHoy < 10) {
-                            day1Hoy = "0" + dayHoy;
-
-                        }
                         if (year > yearHoy || month > monthHoy && year > yearHoy || day > dayHoy && month > monthHoy && year > yearHoy ){
                             Toast.makeText(inf.getContext(), "Error al recoger elos datos", Toast.LENGTH_SHORT).show();
                         }else {
 
-                            tvFecha.setText("Fecha seleccionada: " + day1 + "/" + month1 + "/" + year);
+                            tvFecha.setText(day1 + "/" + month1 + "/" + year);
 
                             String idBaliza = "C069";
                             for (int i = 0; i < BalizasRVAdapter.balizas.size(); i++) {
@@ -167,11 +152,6 @@ public class GraficoFragment extends Fragment {
                                             datos.add(objfinal.get(horas.get(i)).toString());
                                         }
 
-                                        for (int i = 0; i < horas.size(); i++) {
-                                            System.out.println("Hora: " + horas.get(i));
-                                            System.out.println("Dato: " + datos.get(i));
-                                        }
-
                                         DataPoint[] dataPoints = new DataPoint[horas.size()];
 
                                         for (int i = 0; i < horas.size(); i++) {
@@ -209,8 +189,6 @@ public class GraficoFragment extends Fragment {
                             }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    System.out.println(error);
-                                    System.out.println("Ha ocurrido un error al realizar la peticion a Euskalmet");
                                     Toast.makeText(inf.getContext(), "Error al recoger los datos, prueba otra fecha", Toast.LENGTH_SHORT).show();
                                 }
                             });

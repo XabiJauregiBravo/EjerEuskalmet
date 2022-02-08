@@ -10,19 +10,15 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.ejereuskalmet.DB.Balizas;
 import com.example.ejereuskalmet.MainActivity;
 import com.example.ejereuskalmet.R;
 import com.example.ejereuskalmet.ui.main.SectionsPagerAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class BalizasRVAdapter extends RecyclerView.Adapter<BalizasRVAdapter.ViewHolder> {
-
 
     public static List<Balizas> balizas = new ArrayList<Balizas>();
     private LayoutInflater mInflater;
