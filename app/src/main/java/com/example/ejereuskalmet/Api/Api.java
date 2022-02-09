@@ -278,10 +278,15 @@ public class Api {
 
             int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
+            String day1 = "" + day;
+
+            if (day < 10) {
+                day1 = "0" + day;
+            }
             Datos lectura = new Datos();
 
             lectura.id = baliza.id;
-            String url = "https://www.euskalmet.euskadi.eus/vamet/stations/readings/" + baliza.id + "/" + year + "/" + month1 + "/" + day + "/readingsData.json";
+            String url = "https://www.euskalmet.euskadi.eus/vamet/stations/readings/" + baliza.id + "/" + year + "/" + month1 + "/" + day1 + "/readingsData.json";
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                 @Override

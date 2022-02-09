@@ -36,9 +36,10 @@ public class LecturasRVAdapter extends RecyclerView.Adapter<LecturasRVAdapter.Vi
             while (true) {
                 try {
                     Thread.sleep(300000);
+                    System.out.println("haciendo cosas en el hilo");
                     Api.actualizarBalizas((ArrayList<Balizas>) BalizasRVAdapter.balizas);
                 } catch (Exception e) {
-                  //  System.out.println(e);
+                  //
                 }
             }
         }
